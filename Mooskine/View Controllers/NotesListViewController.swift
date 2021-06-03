@@ -52,7 +52,7 @@ class NotesListViewController: UIViewController, UITableViewDataSource {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        setupFetchedResultsController()
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: false)
             tableView.reloadRows(at: [indexPath], with: .fade)
@@ -110,7 +110,7 @@ class NotesListViewController: UIViewController, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
+        return fetchedResultsController.sections?[0].numberOfObjects ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -119,6 +119,7 @@ class NotesListViewController: UIViewController, UITableViewDataSource {
 
         // Configure cell
         cell.textPreviewLabel.attributedText = aNote.attributedText
+        
         if let creationDate = aNote.creationDate {
             cell.dateLabel.text = dateFormatter.string(from: creationDate)
         }
